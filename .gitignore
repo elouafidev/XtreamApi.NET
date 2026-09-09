@@ -1,0 +1,41 @@
+# Build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+publish/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.DotSettings.user
+
+# Test / coverage
+[Tt]est[Rr]esult*/
+coverage*.json
+coverage*.xml
+*.coverage
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Secrets locaux (identifiants Xtream de test - NE JAMAIS COMMITER)
+appsettings.Local.json
+appsettings.Development.json
+secrets.json
+*.local.env
+.env
+
+# Divers
+*.log
+Thumbs.db
+desktop.ini

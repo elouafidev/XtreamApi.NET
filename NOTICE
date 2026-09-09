@@ -1,0 +1,21 @@
+Xtream API SDK for .NET
+=======================
+
+Copyright (c) 2026 elouafi.dev
+Distributed under the MIT License. See LICENSE.
+
+
+Architectural inspiration
+-------------------------
+
+The overall shape of this library -- the separation between client, transport
+and connection factory, and the idea of a pluggable HTTP client factory allowing
+the User-Agent to be configured -- was inspired by:
+
+    Xtream.Client - Copyright (c) Heni Fazzani
+    https://github.com/Fazzani/Xtream.Client
+    MIT License
+
+No source file in this project is copied from Xtream.Client; only the
+organisational concepts were carried over. The attribution above is kept as a
+courtesy and to record where the design came from.

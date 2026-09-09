@@ -1,0 +1,7 @@
+* text=auto eol=crlf
+*.sh text eol=lf
+*.md text eol=lf
+*.ai binary
+*.png binary
+*.jpg binary
+*.ico binary
