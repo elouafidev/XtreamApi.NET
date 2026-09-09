@@ -48,7 +48,7 @@ public class XtreamHttpTransportTests
     [Fact]
     public void The_factory_leaves_the_client_timeout_infinite()
     {
-        // A global timeout would cut off a large catalogue mid-download:
+        // A global timeout would cut off a large catalogue mid-transfer:
         // timeouts are handled per phase inside the transport.
         using var httpClient = XtreamHttpClientFactory.Create();
 
@@ -92,7 +92,7 @@ public class XtreamHttpTransportTests
     {
         // A real catalogue runs to tens of thousands of items and tens of
         // megabytes. The user must be able to interrupt the load without waiting
-        // for the download to finish.
+        // for the transfer to finish.
         var channels = string.Join(',', Enumerable.Range(1, 20_000)
             .Select(index => $$"""{"stream_id":{{index}},"name":"Channel {{index}}"}"""));
 

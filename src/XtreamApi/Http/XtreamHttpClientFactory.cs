@@ -40,7 +40,7 @@ public static class XtreamHttpClientFactory
         {
             // Timeouts are handled per request, separating the wait for headers
             // from reading the body. A global timeout here would cut off the
-            // download of large responses.
+            // transfer of large responses.
             Timeout = Timeout.InfiniteTimeSpan,
         };
 

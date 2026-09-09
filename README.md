@@ -162,8 +162,14 @@ drops the length header while decompressing. `BytesReceived` is always accurate.
 - **Authentication is not just `auth == 1`.** Panels return `auth: 1` on expired
   accounts; `UserInfo.IsUsable` checks authentication, status and expiry.
 
-`docs/xtream-api-reference.md` documents the protocol itself: every action, its
-parameters, the typing traps, and the playback URL formats.
+## Documentation
+
+- [`docs/usage-guide.md`](docs/usage-guide.md) — the full guide: what the SDK
+  covers, how to integrate it, configuration, progress, error handling,
+  extension points and troubleshooting.
+- [`docs/xtream-api-reference.md`](docs/xtream-api-reference.md) — the protocol
+  itself: every action, its parameters, the typing traps, and the playback URL
+  formats.
 
 ## Building
 

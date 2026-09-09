@@ -23,7 +23,7 @@ public sealed class XtreamClientOptions
     /// <para>
     /// This timeout deliberately does not cover reading the body: a
     /// <c>get_live_streams</c> response routinely weighs tens of megabytes, and
-    /// a global timeout would cut it off mid-download. Reading the body is
+    /// a global timeout would cut it off mid-transfer. Reading the body is
     /// bounded only by the caller's cancellation token.
     /// </para>
     /// </summary>
