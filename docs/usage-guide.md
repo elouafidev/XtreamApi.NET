@@ -1,5 +1,7 @@
 # XtreamApi — Usage Guide
 
+*[Version française](usage-guide-fr.md)*
+
 Everything the library offers, and how to put it to work in a real
 application. It assumes you have read the disclaimer in the `README`, and that
 the panel you point it at is one you are lawfully entitled to query.
@@ -621,6 +623,7 @@ view model can be tested against a stub with no HTTP involved at all.
 
 ## See also
 
+- [`usage-guide-fr.md`](usage-guide-fr.md) — the French version of this guide.
 - [`xtream-api-reference.md`](xtream-api-reference.md) — the protocol: every
   action, its parameters, its typing traps and the address formats.
 - `README.md` — installation, design notes, and the **Intended use and

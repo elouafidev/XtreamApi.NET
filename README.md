@@ -166,7 +166,8 @@ drops the length header while decompressing. `BytesReceived` is always accurate.
 
 - [`docs/usage-guide.md`](docs/usage-guide.md) — the full guide: what the SDK
   covers, how to integrate it, configuration, progress, error handling,
-  extension points and troubleshooting.
+  extension points and troubleshooting — also available in French:
+  [`docs/usage-guide-fr.md`](docs/usage-guide-fr.md).
 - [`docs/xtream-api-reference.md`](docs/xtream-api-reference.md) — the protocol
   itself: every action, its parameters, the typing traps, and the playback URL
   formats.
