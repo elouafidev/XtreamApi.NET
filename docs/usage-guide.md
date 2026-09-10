@@ -134,6 +134,55 @@ Console.WriteLine($"Connections : {account.User?.ActiveConnections}/{account.Use
 Console.WriteLine($"Formats     : {string.Join(", ", account.User?.AllowedOutputFormats ?? [])}");
 ```
 
+### What `cancellationToken` is
+
+In every sample it stands for a token **you** supply — the examples assume one
+is already in scope, and copying a line as-is will not compile without it.
+
+It is .NET's cooperative cancellation mechanism. You create a
+`CancellationTokenSource`, pass its `Token` to the call, and cancelling the
+source makes the call stop and throw `OperationCanceledException` instead of
+running to completion. Nothing is killed by force: the method agrees to check
+the token and give up on its own.
+
+```csharp
+using var cts = new CancellationTokenSource();      // or (TimeSpan) for a deadline
+var account = await client.AuthenticateAsync(cts.Token);
+
+cts.Cancel();   // from a Cancel button, a closing window, a superseded search
+```
+
+Catching the cancellation and doing nothing is the correct response — a
+cancellation you asked for is not a failure, and must not be shown as one:
+
+```csharp
+try
+{
+    await foreach (var channel in client.StreamLiveStreamsAsync(cancellationToken: cts.Token))
+    {
+        list.Add(channel);
+    }
+}
+catch (OperationCanceledException)
+{
+    // Expected: the user moved on.
+}
+```
+
+The parameter is optional everywhere, and omitting it is fine in a throwaway
+script. In an application it is a bad trade: **the token is the only bound on
+reading a response body** (§7), so without one a slow panel can hold a call
+open indefinitely.
+
+Note the two spellings. `AuthenticateAsync(ct)` takes nothing else, so position
+is unambiguous. `GetLiveStreamsAsync(int? categoryId, CancellationToken ct)`
+takes a category filter first, so the token has to be named —
+`cancellationToken: ct` — to skip past it.
+
+More on lifetime and cancellation in §11.
+
+### From a playlist address
+
 If all you have is a playlist address, the credentials can be extracted from
 it:
 

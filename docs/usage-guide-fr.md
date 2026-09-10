@@ -140,6 +140,57 @@ Console.WriteLine($"Connexions  : {account.User?.ActiveConnections}/{account.Use
 Console.WriteLine($"Formats     : {string.Join(", ", account.User?.AllowedOutputFormats ?? [])}");
 ```
 
+### Ce qu'est `cancellationToken`
+
+Dans tous les exemples, il désigne un jeton que **vous** fournissez : les
+extraits supposent qu'il existe déjà, et recopier une ligne telle quelle ne
+compilera pas sans lui.
+
+C'est le mécanisme d'annulation coopérative de .NET. Vous créez un
+`CancellationTokenSource`, passez son `Token` à l'appel, et annuler la source
+fait s'interrompre l'appel, qui lève alors `OperationCanceledException` au lieu
+d'aller au bout. Rien n'est tué de force : la méthode accepte de consulter le
+jeton et de renoncer d'elle-même.
+
+```csharp
+using var cts = new CancellationTokenSource();      // ou (TimeSpan) pour un delai
+var account = await client.AuthenticateAsync(cts.Token);
+
+cts.Cancel();   // depuis un bouton Annuler, une fenetre qui se ferme...
+```
+
+Attraper l'annulation sans rien faire est la bonne réponse : une annulation que
+l'on a demandée n'est pas une panne, et ne doit surtout pas être affichée comme
+telle.
+
+```csharp
+try
+{
+    await foreach (var chaine in client.StreamLiveStreamsAsync(cancellationToken: cts.Token))
+    {
+        liste.Add(chaine);
+    }
+}
+catch (OperationCanceledException)
+{
+    // Attendu : l'utilisateur est passe a autre chose.
+}
+```
+
+Le paramètre est optionnel partout, et s'en passer convient à un script
+jetable. Dans une application, c'est un mauvais calcul : **le jeton est la
+seule borne sur la lecture du corps d'une réponse** (§7), et sans lui un panel
+lent peut retenir un appel indéfiniment.
+
+Notez les deux écritures. `AuthenticateAsync(ct)` ne prend rien d'autre : la
+position suffit. `GetLiveStreamsAsync(int? categoryId, CancellationToken ct)`
+prend d'abord un filtre de catégorie, si bien que le jeton doit être nommé —
+`cancellationToken: ct` — pour sauter par-dessus.
+
+Davantage sur la durée de vie et l'annulation au §11.
+
+### Depuis une adresse de playlist
+
 Si vous ne disposez que d'une adresse de playlist, les identifiants peuvent en
 être extraits :
 
